@@ -90,3 +90,7 @@ class SideBar(models.Model):
             }
             result = render_to_string('config/blocks/sidebar_comments.html', context)
         return result
+
+    @classmethod
+    def get_all(cls):
+        return cls.objects.filter(status=cls.STATUS_SHOW)

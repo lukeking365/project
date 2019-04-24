@@ -7,3 +7,10 @@
 <hr/>
 <p>{{ post.content }}</p>
 {% endif %}
+<hr/>
+<div>侧边栏：
+    {% for sidebar in sidebars %}
+        <h4>{{ sidebar.title }}</h4>
+        {{ sidebar.content }}
+    {% endfor %}
+</div>
