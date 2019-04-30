@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 import mistune
 
+from django.utils.functional import cached_property
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.db import models
@@ -102,6 +103,10 @@ class Post(models.Model):
         else:
             self.content_html = self.content
         super().save(*args, **kwargs)
+
+    @cached_property
+    def tags(self):
+        return ','.join(self.tag.values_list('name', flat=True))
 
     @staticmethod
     def get_by_tag(tag_id):
