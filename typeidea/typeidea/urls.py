@@ -13,7 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
 
@@ -27,11 +29,13 @@ from config.views import LinkListViews
 from comment.views import CommentView
 # from .custom_site import custom_site
 import xadmin
+from .autocomplete import CategoryAutocomplete, TagAutocomplete
 
 urlpatterns = [
     #url(r'^category/(?P<category_id>\d+)/$', post_list,{'example':'nop'}, name='category_list'),
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^category/(?P<category_id>\d+)/$', CategoryView.as_view(), name='category-list'),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name='tag-list'),
     url(r'^post/(?P<post_id>\d+).html$', PostDetailView.as_view(), name='post-detail'),
     url(r'^search/$', SearchView.as_view(), name='search'),
@@ -44,4 +48,4 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap_views.sitemap,{'sitemaps':{'posts':PostSitemap}}),
     url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name='category-autocomplete'),
     url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

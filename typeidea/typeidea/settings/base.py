@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'blog',
     'config',
     'comment',
+    'ckeditor',
+    'ckeditor_uploader',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,3 +138,19 @@ STATICFILES_DIRS = [
 
 XADMIN_TITLE = 'Typeidea 管理后台'
 XADMIN_FOOTER_TITLE =  'power by the5fire.com'
+
+CKEDITOR_CONFIGS = {
+    'default':{
+        'toolbar':'full',
+        'height':300,
+        'width':800,
+        'tabSpaces':4,
+        'extraPlugins':'codesnippet',
+    },
+}
+
+MEDIA_URL = '/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CKEDITOR_UPLOAD_PATH = 'article_images'
+
+DEFAULT_FILE_STORAGE = 'typeidea.storage.WatermarkStorage'
